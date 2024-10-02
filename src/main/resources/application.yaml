@@ -1,0 +1,62 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: BE-WebsiteBanGiay
+
+  # CONNECTION POOL
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: HikariConnPool
+
+    url: jdbc:mysql://localhost:3306/WebsiteBanGiay?useSSL=true&characterEncoding=UTF-8
+    username: root
+    password: locnhph38787
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: none
+      format_sql: false
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          batch_size: 10
+          batch_versioned_data: true
+        order_updates: true
+        order_inserts: true
+    # generate_statistics: true
+
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+
+  springdoc:
+    api-docs:
+      enabled: true
+      path: /api-docs
+    swagger-ui:
+      enabled: true
+      doc-expansion: none
+
+openapi:
+  service:
+    title: API Document
+    version: v1.0.0
+    description: Description API service
+    serverUrl: http://localhost:${server.port}/api/v1
+    serverName: server dev
+    api-docs: api-services
