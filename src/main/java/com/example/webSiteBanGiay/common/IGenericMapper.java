@@ -3,7 +3,7 @@ package com.example.webSiteBanGiay.common;
 import java.util.List;
 
 public interface IGenericMapper <E,C,U,R>{
-    E toEntityDto (E entity);
+    R toEntityDto (E entity);
     List<R> toEntityDtoList(List<E> entityList);
     E createToEntity(C request);
     void updateToEntity(E entity, U request);
