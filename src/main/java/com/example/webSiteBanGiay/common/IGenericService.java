@@ -1,6 +1,5 @@
 package com.example.webSiteBanGiay.common;
 
-import com.example.webSiteBanGiay.dto.ApiResponse;
 import com.example.webSiteBanGiay.dto.PageResponse;
 import org.springframework.data.domain.Pageable;
 

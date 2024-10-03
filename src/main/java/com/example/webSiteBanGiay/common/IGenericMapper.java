@@ -1,7 +1,10 @@
 package com.example.webSiteBanGiay.common;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public interface IGenericMapper <E,C,U,R>{
     R toEntityDto (E entity);
     List<R> toEntityDtoList(List<E> entityList);

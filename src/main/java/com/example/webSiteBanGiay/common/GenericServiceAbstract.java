@@ -1,13 +1,16 @@
 package com.example.webSiteBanGiay.common;
 
 import com.example.webSiteBanGiay.dto.PageResponse;
+import com.example.webSiteBanGiay.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -45,24 +48,31 @@ public abstract class GenericServiceAbstract<E,ID,C,U,R> implements IGenericServ
         return mapper.toEntityDto(entityRepository.save(entity));
     }
 
+    @Transactional
     @Override
     public R update(ID id, U request) {
-        return null;
+        E entity = this.getById(id);
+        this.beforeUpdate(request);
+        mapper.updateToEntity(entity,request);
+        this.afterConvertUpdateRequest(request,entity);
+        return mapper.toEntityDto(entityRepository.save(entity));
     }
 
     @Override
     public void delete(ID id) {
-
+        entityRepository.deleteById(id);
     }
 
     @Override
     public R getDtoById(ID id) {
-        return null;
+
+        return mapper.toEntityDto(this.getById(id));
     }
 
     @Override
     public E getById(ID id) {
-        return null;
+        return entityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(this.getEntityName() +"not found"));
     }
 
 
