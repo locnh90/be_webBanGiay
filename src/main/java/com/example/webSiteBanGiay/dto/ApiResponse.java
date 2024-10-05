@@ -22,4 +22,6 @@ public class ApiResponse<E> implements Serializable {
         this.code = code;
         this.message = message;
     }
+
+
 }
