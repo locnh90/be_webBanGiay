@@ -1,4 +1,5 @@
-package com.example.webSiteBanGiay.dto.sanPham;
+package com.example.webSiteBanGiay.dto.sanPham.thuongHieu;
+
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -9,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UpdateKichCo {
-    @NotBlank(message = "khong được để trống")
-    String tenKichCo;
+public class CreateThuongHieu {
+    @NotBlank(message = "khong duoc de trong")
+    String tenThuongHieu;
 }

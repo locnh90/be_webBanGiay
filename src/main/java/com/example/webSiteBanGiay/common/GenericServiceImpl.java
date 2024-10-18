@@ -1,8 +1,13 @@
 package com.example.webSiteBanGiay.common;
 
+import com.example.webSiteBanGiay.dto.PageResponse;
 import com.example.webSiteBanGiay.exception.AppException;
 import com.example.webSiteBanGiay.exception.ErrorCode;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -17,6 +22,25 @@ public abstract class GenericServiceImpl<T,ID,C,U,R> implements GenericService<T
         this.mapper = mapper;
         this.repository = repository;
         this.entityManager = entityManager;
+    }
+
+    @Override
+    public PageResponse<?> getAll(Pageable pageable) {
+        int page = 0;
+        if (pageable.getPageNumber() > 0) page = pageable.getPageNumber() - 1;
+
+        PageRequest pageRequest = PageRequest.of(page, pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "ngayThem", "id"));
+
+        Page<T> entityPage = repository.findAll(pageRequest);
+        List<R> result = mapper.toListResponse(entityPage.getContent());
+        return PageResponse.builder()
+                .pageNo(pageRequest.getPageNumber() + 1)
+                .pageSize(pageable.getPageSize())
+                .totalElements(entityPage.getTotalElements())
+                .totalPages(entityPage.getTotalPages())
+                .items(result)
+                .build();
     }
 
     @Override

@@ -1,12 +1,14 @@
 package com.example.webSiteBanGiay.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
 public class ApiResponse<E> implements Serializable {
 
     private final int code;

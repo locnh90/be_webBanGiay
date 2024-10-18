@@ -1,10 +1,10 @@
 package com.example.webSiteBanGiay.repository.sanPham;
 
 import com.example.webSiteBanGiay.common.GenericRepository;
-import com.example.webSiteBanGiay.dto.sanPham.CreateKichCo;
-import com.example.webSiteBanGiay.dto.sanPham.ResponseKichCo;
-import com.example.webSiteBanGiay.dto.sanPham.UpdateKichCo;
-import com.example.webSiteBanGiay.entity.product.attributes.KichCo;
+import com.example.webSiteBanGiay.dto.sanPham.kichCo.CreateKichCo;
+import com.example.webSiteBanGiay.dto.sanPham.kichCo.ResponseKichCo;
+import com.example.webSiteBanGiay.dto.sanPham.kichCo.UpdateKichCo;
+import com.example.webSiteBanGiay.entity.sanPham.thuocTinh.KichCo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

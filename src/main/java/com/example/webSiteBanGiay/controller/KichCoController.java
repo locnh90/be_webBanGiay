@@ -1,16 +1,18 @@
 package com.example.webSiteBanGiay.controller;
 
 import com.example.webSiteBanGiay.dto.ApiResponse;
-import com.example.webSiteBanGiay.dto.sanPham.CreateKichCo;
-import com.example.webSiteBanGiay.dto.sanPham.UpdateKichCo;
+import com.example.webSiteBanGiay.dto.sanPham.kichCo.CreateKichCo;
+import com.example.webSiteBanGiay.dto.sanPham.kichCo.UpdateKichCo;
 import com.example.webSiteBanGiay.exception.AppException;
 import com.example.webSiteBanGiay.exception.ErrorCode;
 import com.example.webSiteBanGiay.repository.sanPham.KichCoResponsitory;
 import com.example.webSiteBanGiay.service.sanPham.KichCoServiceImpl;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/admin/kichCo")
 public class KichCoController {
@@ -24,8 +26,8 @@ public class KichCoController {
     }
 
     @GetMapping()
-    public ApiResponse<?> getAll(){
-        return new ApiResponse<>(HttpStatus.OK.value(), "Successfully",kichCoService.getAll());
+    public ApiResponse<?> getAll(Pageable pageable){
+        return new ApiResponse<>(HttpStatus.OK.value(), "Successfully",kichCoService.getAll(pageable));
     }
     @PostMapping()
     public ApiResponse<?> createKichCo(@Valid @RequestBody CreateKichCo request){
@@ -42,5 +44,9 @@ public class KichCoController {
     @GetMapping("/{id}")
     public ApiResponse<?> detailKichCo(@PathVariable("id") Integer id){
         return new ApiResponse<>(HttpStatus.OK.value(), "thanh cong",kichCoService.getById(id));
+    }
+    @GetMapping("/")
+    public ApiResponse<?> getByName(@RequestParam ("tenKichCo") String tenKichCo){
+        return new ApiResponse<>(HttpStatus.OK.value(), "thanh cong",kichCoService.getByName(tenKichCo));
     }
 }

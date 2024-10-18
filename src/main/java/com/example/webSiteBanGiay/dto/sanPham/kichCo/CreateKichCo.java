@@ -1,4 +1,4 @@
-package com.example.webSiteBanGiay.dto.sanPham;
+package com.example.webSiteBanGiay.dto.sanPham.kichCo;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

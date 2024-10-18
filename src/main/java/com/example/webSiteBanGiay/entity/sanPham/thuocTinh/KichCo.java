@@ -1,4 +1,4 @@
-package com.example.webSiteBanGiay.entity.product.attributes;
+package com.example.webSiteBanGiay.entity.sanPham.thuocTinh;
 
 import com.example.webSiteBanGiay.entity.BaseEntity;
 import jakarta.persistence.Column;
