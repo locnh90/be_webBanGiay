@@ -6,6 +6,7 @@ import com.example.webSiteBanGiay.dto.sanPham.kichCo.UpdateKichCo;
 import com.example.webSiteBanGiay.exception.AppException;
 import com.example.webSiteBanGiay.exception.ErrorCode;
 import com.example.webSiteBanGiay.repository.sanPham.KichCoResponsitory;
+import com.example.webSiteBanGiay.service.sanPham.KichCoService;
 import com.example.webSiteBanGiay.service.sanPham.KichCoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/kichCo")
 public class KichCoController {
 
-    private final KichCoServiceImpl kichCoService;
+    private final KichCoService kichCoService;
     private final KichCoResponsitory kichCoResponsitory;
 
-    public KichCoController(KichCoServiceImpl kichCoService, KichCoResponsitory kichCoResponsitory) {
+    public KichCoController(KichCoService kichCoService, KichCoResponsitory kichCoResponsitory) {
         this.kichCoService = kichCoService;
         this.kichCoResponsitory = kichCoResponsitory;
     }
@@ -38,8 +39,8 @@ public class KichCoController {
                 "Add thanh cong",kichCoService.createEntity(request));
     }
     @PutMapping("/{id}")
-    public ApiResponse<?> updateKichCo(@Valid @PathVariable ("id") Integer id, UpdateKichCo request){
-        return new ApiResponse<>(HttpStatus.OK.value(), "thanh cong",kichCoService.updateEntity(id, request));
+    public ApiResponse<?> updateKichCo(@Valid @PathVariable ("id") Integer id,@RequestBody UpdateKichCo request){
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "thanh cong",kichCoService.updateEntity(id, request));
     }
     @GetMapping("/{id}")
     public ApiResponse<?> detailKichCo(@PathVariable("id") Integer id){

@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class GenericServiceImpl<T,ID,C,U,R> implements GenericService<T, ID, C,U,R> {
 
-    private final GenericMapper<T,C,U,R> mapper;
+    protected final GenericMapper<T,C,U,R> mapper;
     private final GenericRepository <T,ID,C,U,R> repository;
     private final EntityManager entityManager;
 
@@ -62,6 +62,7 @@ public abstract class GenericServiceImpl<T,ID,C,U,R> implements GenericService<T
             throw new AppException(ErrorCode.NOT_FOUND);
         }
         mapper.toUpdateEntity(entity,request);
+        repository.save(entity);
         return mapper.toResponse(entity);
     }
 
