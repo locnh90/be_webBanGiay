@@ -11,6 +11,10 @@ import com.example.webSiteBanGiay.entity.sanPham.thuocTinh.KichCo;
 
 import com.example.webSiteBanGiay.repository.sanPham.KichCoResponsitory;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,13 +34,33 @@ public class KichCoServiceImpl
         this.kichCoResponsitory = kichCoResponsitory;
     }
 
+
     @Override
-    public List<ResponseKichCo> getByName(String tenKichCo) {
+    public PageResponse<?> getByName(Pageable pageable, String tenKichCo) {
+        int page = 0;
+        if (pageable.getPageNumber() > 0) page = pageable.getPageNumber() - 1;
+
+        PageRequest pageRequest = PageRequest.of(page, pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "ngayThem", "id"));
+
+        Page<KichCo> entityPage = kichCoResponsitory.findByTenKichCo(pageRequest,tenKichCo);
+        List<ResponseKichCo> result = mapper.toListResponse(entityPage.getContent());
+        return PageResponse.builder()
+                .pageNo(pageRequest.getPageNumber() + 1)
+                .pageSize(pageable.getPageSize())
+                .totalElements(entityPage.getTotalElements())
+                .totalPages(entityPage.getTotalPages())
+                .items(result)
+                .build();
+    }
+
+    @Override
+    public Boolean getByName(String tenKichCo) {
         KichCo kichCo = kichCoResponsitory.findByTenKichCo(tenKichCo);
-        if(kichCo!= null){
-            return List.of(mapper.toResponse(kichCo));
+        if(kichCo!=null){
+            return true;
         }
-        return null;
+        return false;
     }
 
 

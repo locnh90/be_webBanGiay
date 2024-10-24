@@ -3,8 +3,8 @@ package com.example.webSiteBanGiay.exception;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
-    EXISTED (HttpStatus.CONFLICT.value(), "Da ton tai"),
-    NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Khong tim thay"),
+    EXISTED (HttpStatus.CONFLICT.value(), "đã tồn tại"),
+    NOT_FOUND(HttpStatus.NOT_FOUND.value(), "không tìm thấy"),
     ;
     private int code;
     private String message;

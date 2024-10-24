@@ -7,7 +7,6 @@ import com.example.webSiteBanGiay.exception.AppException;
 import com.example.webSiteBanGiay.exception.ErrorCode;
 import com.example.webSiteBanGiay.repository.sanPham.KichCoResponsitory;
 import com.example.webSiteBanGiay.service.sanPham.KichCoService;
-import com.example.webSiteBanGiay.service.sanPham.KichCoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,35 +18,33 @@ import org.springframework.web.bind.annotation.*;
 public class KichCoController {
 
     private final KichCoService kichCoService;
-    private final KichCoResponsitory kichCoResponsitory;
 
     public KichCoController(KichCoService kichCoService, KichCoResponsitory kichCoResponsitory) {
         this.kichCoService = kichCoService;
-        this.kichCoResponsitory = kichCoResponsitory;
     }
 
     @GetMapping()
-    public ApiResponse<?> getAll(Pageable pageable){
-        return new ApiResponse<>(HttpStatus.OK.value(), "Successfully",kichCoService.getAll(pageable));
+    public ApiResponse<?> getAll(Pageable pageable,@RequestParam(required = false)String name){
+        return new ApiResponse<>(HttpStatus.OK.value(), "Successfully",kichCoService.getByName(pageable,name));
     }
     @PostMapping()
     public ApiResponse<?> createKichCo(@Valid @RequestBody CreateKichCo request){
-        if(kichCoResponsitory.findByTenKichCo(request.getTenKichCo()) != null){
-            throw new AppException(ErrorCode.EXISTED);
+        if(kichCoService.getByName(request.getTenKichCo())){
+            throw new AppException(ErrorCode.EXISTED,"size");
         }
         return new ApiResponse<>(HttpStatus.CREATED.value(),
-                "Add thanh cong",kichCoService.createEntity(request));
+                "Thêm thành công kích cỡ",kichCoService.createEntity(request));
     }
     @PutMapping("/{id}")
     public ApiResponse<?> updateKichCo(@Valid @PathVariable ("id") Integer id,@RequestBody UpdateKichCo request){
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "thanh cong",kichCoService.updateEntity(id, request));
+        if(kichCoService.getByName(request.getTenKichCo())){
+            throw new AppException(ErrorCode.EXISTED,"size");
+        }
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "Cập nhật thành công kích cỡ",kichCoService.updateEntity(id, request));
     }
     @GetMapping("/{id}")
     public ApiResponse<?> detailKichCo(@PathVariable("id") Integer id){
         return new ApiResponse<>(HttpStatus.OK.value(), "thanh cong",kichCoService.getById(id));
     }
-    @GetMapping("/")
-    public ApiResponse<?> getByName(@RequestParam ("tenKichCo") String tenKichCo){
-        return new ApiResponse<>(HttpStatus.OK.value(), "thanh cong",kichCoService.getByName(tenKichCo));
-    }
+
 }
