@@ -6,7 +6,7 @@ import com.example.webSiteBanGiay.dto.sanPham.kichCo.UpdateKichCo;
 import com.example.webSiteBanGiay.exception.AppException;
 import com.example.webSiteBanGiay.exception.ErrorCode;
 import com.example.webSiteBanGiay.repository.sanPham.KichCoResponsitory;
-import com.example.webSiteBanGiay.service.sanPham.KichCoService;
+import com.example.webSiteBanGiay.service.sanPham.kichCo.KichCoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

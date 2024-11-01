@@ -1,4 +1,4 @@
-package com.example.webSiteBanGiay.service.sanPham;
+package com.example.webSiteBanGiay.service.sanPham.kichCo;
 
 import com.example.webSiteBanGiay.common.GenericMapper;
 import com.example.webSiteBanGiay.common.GenericRepository;

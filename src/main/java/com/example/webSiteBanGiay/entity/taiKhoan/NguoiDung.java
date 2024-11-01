@@ -3,10 +3,7 @@ package com.example.webSiteBanGiay.entity.taiKhoan;
 import com.example.webSiteBanGiay.entity.BaseEntity;
 import com.example.webSiteBanGiay.enums.GioiTinh;
 import com.example.webSiteBanGiay.enums.TrangThai;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -28,7 +25,18 @@ public class NguoiDung extends BaseEntity<Integer> {
     String sdt;
     String email;
     String avatar;
-    String diaChi;
+//    @OneToMany(mappedBy = "khach_", cascade = ALL, fetch = FetchType.LAZY)
+//    Set<hang> addresses = new HashSet<>();
+//
+//    public void addAddress(Address address) {
+//        if (address != null) {
+//            if (addresses == null) {
+//                addresses = new HashSet<>();
+//            }
+//            addresses.add(address);
+//            address.setCustomer(this); // save customer id
+//        }
+//    }
     String userName;
     String password;
 

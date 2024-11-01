@@ -1,4 +1,4 @@
-package com.example.webSiteBanGiay.service.sanPham;
+package com.example.webSiteBanGiay.service.sanPham.kichCo;
 
 import com.example.webSiteBanGiay.common.GenericService;
 import com.example.webSiteBanGiay.dto.PageResponse;
